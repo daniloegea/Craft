@@ -4,7 +4,7 @@
 from ctypes import CDLL, CFUNCTYPE, c_float, c_int, c_void_p
 from collections import OrderedDict
 
-dll = CDLL('./world')
+dll = CDLL('/usr/local/lib/libcraft-world.so')
 
 WORLD_FUNC = CFUNCTYPE(None, c_int, c_int, c_int, c_int, c_void_p)
 

@@ -23,6 +23,10 @@ include_directories(deps/noise)
 include_directories(deps/sqlite)
 include_directories(deps/tinycthread)
 
+if(SERVER)
+	add_library(world SHARED src/world.c)
+endif(SERVER)
+
 install_programs(/bin FILES craft)
 install_files(/share/craft/shaders FILES shaders/block_fragment.glsl shaders/block_vertex.glsl
         shaders/line_fragment.glsl shaders/line_vertex.glsl shaders/sky_fragment.glsl
