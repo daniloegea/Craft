@@ -24,7 +24,7 @@ include_directories(deps/sqlite)
 include_directories(deps/tinycthread)
 
 if(SERVER)
-	add_library(world SHARED src/world.c)
+	add_library(world SHARED deps/noise/noise.c src/world.c)
 endif(SERVER)
 
 install_programs(/bin FILES craft)
