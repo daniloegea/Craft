@@ -1,5 +1,6 @@
+#!/usr/bin/env python2.7
 from math import floor
-from world import World
+from craft_world import World
 import Queue
 import SocketServer
 import datetime
