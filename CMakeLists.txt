@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.31)
 
 project(craft)
 
@@ -7,20 +7,14 @@ FILE(GLOB SOURCE_FILES src/*.c)
 add_executable(
     craft
     ${SOURCE_FILES}
-    deps/glew/src/glew.c
     deps/lodepng/lodepng.c
     deps/noise/noise.c
-    deps/sqlite/sqlite3.c
     deps/tinycthread/tinycthread.c)
 
 add_definitions(-std=c99 -O3 -DPREFIX=\"${CMAKE_INSTALL_PREFIX}\")
 
-add_subdirectory(deps/glfw)
-include_directories(deps/glew/include)
-include_directories(deps/glfw/include)
 include_directories(deps/lodepng)
 include_directories(deps/noise)
-include_directories(deps/sqlite)
 include_directories(deps/tinycthread)
 
 if(SERVER)
@@ -50,7 +44,14 @@ if(APPLE)
 endif()
 
 if(UNIX)
-    target_link_libraries(craft glfw
+    find_package(SQLite3 REQUIRED)
+    find_package(OpenGL REQUIRED)
+    find_package(glfw3 REQUIRED)
+    find_package(GLEW REQUIRED)
+    target_link_libraries(craft ${SQLite3_LIBRARIES})
+    target_link_libraries(craft ${OPENGL_LIBRARIES})
+    target_link_libraries(craft ${GLEW_LIBRARIES})
+    target_link_libraries(craft glfw m pthread
         ${GLFW_LIBRARIES} ${CURL_LIBRARIES})
 endif()
 
